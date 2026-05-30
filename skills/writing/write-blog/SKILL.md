@@ -1,53 +1,97 @@
 ---
 name: write-blog
-description: 'Write a deep-analysis blog post in Chinese. Triggers: 写一篇文章, 写篇博客, write a blog post, write an article about, 帮我写一篇, 来一篇关于. Use when the user wants to create a structured, insight-driven blog post about a technical topic.'
-argument-hint: 'Describe the topic to write about (e.g., "mattpocock/skills 的设计理念").'
+description: '撰写中文深度分析博客文章。Triggers: 写一篇文章, 写篇博客, write a blog post, write an article about, 帮我写一篇, 来一篇关于. 适用于用户想要创建一篇结构化、洞察驱动的技术博客文章时使用。'
+argument-hint: '描述要写的主题（例如"mattpocock/skills 的设计理念"）。'
 ---
 
-# Write Blog
+# 撰写博客
 
-Use this skill when the user wants to write a deep-analysis blog post in Chinese.
+当用户想要撰写一篇中文深度分析博客时使用此技能。
 
-This skill follows a **grill-then-write** workflow: ask clarifying questions first, then produce the draft.
+此技能遵循 **先提问再写作** 的工作流：先通过提问澄清方向，再产出初稿。
 
-## Step 1: Clarifying Questions
+## 第一步：提问澄清
 
-Ask the following 3 questions **one at a time**, providing a recommended answer for each:
+按顺序提出以下 3 个问题，每个问题附上推荐答案：
 
-1. **Target audience** — How familiar is the reader with the topic? What background can be assumed?
-2. **Core thesis** — What is the single key insight the reader should walk away with?
-3. **Key focus areas** — Which 3-4 points deserve deep analysis? Which can be mentioned briefly?
+1. **目标读者** —— 读者对该主题的熟悉程度如何？可以假设什么背景知识？
+2. **核心观点** —— 读者读完后应该带走的唯一关键洞察是什么？
+3. **重点方向** —— 哪 3-4 个点值得深入分析？哪些可以简要提及？
 
-## Step 2: Write the Draft
+## 第二步：撰写初稿
 
-After all 3 questions are answered, write the full article following these rules:
+回答完 3 个问题后，按以下规则撰写全文：
 
-### Tone
+### 语气与用词
 
-Conversational, with personal perspective. Write like an experienced developer sharing insights with peers — not a textbook, not a product manual. Occasional bold judgments are welcome, but the overall tone is sharing, not lecturing.
+口语化，像跟朋友聊天，不是写论文。公众号读者要的是"懂了"，不是"专业了"。
 
-### Structure
+- ❌ "BIO 的本质是用线程换并发" → ✅ "说白了，BIO 就是用线程换并发"
+- ❌ "这里有一个反直觉的事实：" → ✅ 直接说事实，不用先宣布"我要说一个反直觉的事了"
+- ❌ "关键心态转变：" → ✅ 去掉铺垫，直接说转变
+- 同一个表达在一篇文章里不要出现两次（比如"说白了"出现两次，第二处换个说法）
+- 去掉元叙述：不要告诉读者你正在做什么，直接做
 
-Follow this flow:
+### 结构与节奏
 
-1. **Pain point hook** — Start with a relatable problem the reader recognizes
-2. **Core analysis** — Deep dive into 3-4 key points, each with clear "why" and "what we can learn"
-3. **Design insights** — Analyze the reasoning behind decisions, not just what was done
-4. **Takeaway patterns** — Concrete, reusable patterns the reader can apply immediately
-5. **Getting started** — Lower the barrier to action, tell the reader how to begin
+**开头：场景 > 抽象说理。** 用一个具体的"那一刻"引入，比三段铺垫更有效。前三句话定生死。
 
-### Technical Details
+- 压缩开头，三段压成一段，直接亮核心概念
+- 标题不要设门槛：如果用了领域术语，加括号注释让所有人秒懂
+- ❌ "写了十几年代码，我从没想过一个网络编程的经典概念……"（三段铺垫）
+- ✅ "上周三下午，我让 Claude 写一个用户模块。它在生成，我盯着屏幕。10 分钟过去了……"（场景引入）
 
-Keep code commands, tool names, and project names in English (e.g., `/grill-me`, `Claude Code`). Describe their function in Chinese within the analysis.
+**正文：打破重复句式。** 如果连续三个小节都用同一个句式开头，读到第三遍会有"又来了"的感觉。保留第一个作为锚点，后面的用场景故事或反问切入。
 
-### Audience Assumption
+**过渡要对话式。** 段落之间的过渡不要用干巴巴的连接词（"映射到 AI Coding："）。用反问、停顿、或直接对话的方式自然过渡。
 
-Target readers are developers already using AI coding tools (Claude Code, Cursor, etc.). Assume familiarity with basic concepts. Focus on methodology and mindset, not installation guides.
+- ❌ "映射到 AI Coding：你不再被一个任务阻塞……"
+- ✅ "说了这么多网络编程，跟你写代码有什么关系？关系大了。"
 
-### Content Strategy
+**结尾：钩子要跟文章强关联。** "欢迎交流"这种通用套话放到任何文章后面都能用。好的结尾钩子让读者觉得"这句话只有读完这篇文章才能说"。
 
-Deep analysis over feature listing. Readers want "cognitive upgrade", not "user manual". Every technical point should answer "why" and "what can we learn", not just "what" and "how to use".
+- ❌ "AI Coding 已经进入了新时代，欢迎交流。"
+- ✅ "你现在是 BIO 还是 NIO？评论区聊聊。"
+- 核心金句在结尾用加粗重复一次，形成闭环
+- 不要用半吊子 CTA（注释代码块），要么给具体步骤，要么用强结尾收束
 
-## Step 3: Review and Save
+### 段落与排版
 
-Output the full article for user review. After the user confirms (or provides feedback and revisions), ask where to save the file. Do not assume a default location — the user decides.
+**一段一个信息点，1-2 句话。** 90%+ 的读者在手机上看。手机屏幕窄，一段超过 3 行就显得"密"，读者容易跳读。
+
+**表格在手机上体验差。** 公众号的排版引擎对表格支持很差。能用句子或列表替代的表格，就不要用表格。
+
+- ❌ 5 行表格展示概念映射
+- ✅ "说白了，线程就是你的注意力，连接就是 AI 任务，Selector 就是你的任务管理策略。"
+
+**加粗只保留 2-3 处核心金句。** 加粗是给扫读者的"路标"，太多了等于没有重点。
+
+- 结构性标签（如"任务级阻塞："）不需要加粗，靠冒号和换行就能区分
+- 核心洞察和结尾收束句值得加粗
+- 加粗结束符后要加空格：`**金句。**就像` → `**金句。** 就像`
+
+### 技术细节
+
+**验证所有数据来源。** 引用调查数据时必须核实原始来源。不准确的数据会摧毁文章可信度。
+
+**验证代码示例。** 文章中的配置、命令、API 必须准确。读者可能会照着做——如果报错，信任直接归零。特别注意大小写、环境变量是否存在、配置结构是否正确。
+
+**量化数据要谨慎。** 如果是体感数据，不要写精确数字——用"低"、"高"等定性描述。精确数字容易引发质疑，定性描述不会。
+
+**压缩技术解释。** 类比是引子，不是目的地。技术细节讲清楚核心思想就够了，不需要深挖实现细节。
+
+代码命令、工具名、项目名保持英文（如 `/grill-me`、`Claude Code`），在分析中用中文描述其功能。
+
+### 读者定位
+
+目标读者是已经在使用 AI 编程工具（Claude Code、Cursor 等）的开发者。假设熟悉基本概念，聚焦方法论和心态，而非安装教程。
+
+如果文章用了特定工具做示例，但原理是通用的，要加一句引导："以下以 Claude Code 为例，这些原理适用于任何支持并行会话的 AI 编程工具。" 这样非该工具用户不会觉得"跟我无关"。
+
+### 内容策略
+
+深度分析优于功能罗列。读者要的是"认知升级"，不是"使用手册"。每个技术点都要回答"为什么"和"我们能学到什么"，而不仅仅是"是什么"和"怎么用"。
+
+## 第三步：审阅与保存
+
+输出完整文章供用户审阅。用户确认（或提供反馈修改后），询问保存位置。不要假设默认位置——由用户决定。
