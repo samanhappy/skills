@@ -13,7 +13,29 @@ Translate English technical blog posts into idiomatic, developer-friendly Chines
 | Type | Action |
 |------|--------|
 | Local `.md` file | Read directly |
-| URL | Fetch content, save as `translate/{slug}.md`, then translate |
+| URL | Fetch with `scrapling`, save as `translate/{slug}.md`, then translate |
+
+### URL Fetching
+
+Use `scrapling` to extract clean markdown from URLs (handles JS-rendered pages, Cloudflare, and other anti-bot protections):
+
+```bash
+scrapling extract stealthy-fetch \
+  '<url>' \
+  translate/{slug}.md \
+  --real-chrome \
+  --no-headless \
+  --solve-cloudflare \
+  --network-idle \
+  --wait 5000 \
+  --timeout 90000 \
+  --ai-targeted
+```
+
+- `{slug}`: 2-4 word kebab-case from the article title (e.g. `building-a-react-hook`)
+- `--ai-targeted`: optimizes extracted content for AI consumption (removes nav, ads, sidebars)
+- `--real-chrome --no-headless`: uses a visible Chrome instance to bypass bot detection
+- `--network-idle --wait 5000`: waits for JS to finish rendering before extraction
 
 ## Output
 
