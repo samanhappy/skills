@@ -8,11 +8,11 @@ I’m [Saman](https://github.com/samanhappy) — a software engineer based in Na
 
 This repository is where I collect the skills I actually want my coding agents to use. The goal is simple: keep them practical, composable, and grounded in real engineering work.
 
-Right now this repo starts with one skill:
+Current skills:
 
-- **[tdd](./skills/engineering/tdd/SKILL.md)** — Test-driven development with a Red → Green → Refactor loop. Useful for bug fixes, features, regression tests, and safe refactors.
-
-More skills will land here over time.
+- **[tdd](./skills/engineering/tdd/SKILL.md)** — Test-driven development with a Red → Green → Refactor loop.
+- **[write-blog](./skills/writing/write-blog/SKILL.md)** — Write deep-analysis technical blog posts in Chinese.
+- **[translate-blog](./skills/writing/translate-blog/SKILL.md)** — Translate English technical blog posts to Chinese with glossary-driven terminology consistency.
 
 ## Quickstart
 
@@ -47,7 +47,12 @@ That philosophy matches how I work elsewhere too:
 
 ### Engineering
 
-- **[tdd](./skills/engineering/tdd/SKILL.md)** — Test-driven development with a red-green-refactor loop. Builds features or fixes bugs one small vertical slice at a time.
+- **[tdd](./skills/engineering/tdd/SKILL.md)** — Test-driven development with a red-green-refactor loop.
+
+### Writing
+
+- **[write-blog](./skills/writing/write-blog/SKILL.md)** — Write deep-analysis blog posts in Chinese.
+- **[translate-blog](./skills/writing/translate-blog/SKILL.md)** — Translate English technical blog posts to Chinese.
 
 ## License
 
