@@ -37,6 +37,19 @@ scrapling extract stealthy-fetch \
 - `--real-chrome --no-headless`: uses a visible Chrome instance to bypass bot detection
 - `--network-idle --wait 5000`: waits for JS to finish rendering before extraction
 
+### URL Content Cleanup
+
+Scraped content often includes non-article noise. Before translating, strip the following from the saved markdown file:
+
+- **Navigation**: site headers, breadcrumbs, sidebars, menus
+- **Footer clutter**: copyright notices, "related posts", "read next", newsletter signup forms, comment sections
+- **Sharing links**: "Share on Twitter/LinkedIn", "Discuss on Hacker News", etc.
+- **Author bio boxes**: author blurbs, "written by" cards at the bottom
+
+Keep only the **article body**: title, publication date, article text, code blocks, and embedded images. The result should read as a clean, standalone article.
+
+**Format repair**: scraped content often has formatting issues — broken paragraphs, missing line breaks between sections, orphaned list items, inconsistent heading levels, stray punctuation, or garbled whitespace. Fix these during cleanup so the source is well-structured before translation begins.
+
 ## Output
 
 Translation saved as `{basename}-zh.md` next to the source file.
