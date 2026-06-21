@@ -1,0 +1,4 @@
+interface:
+  display_name: "Clip Subtitle Video"
+  short_description: "Clip videos with styled bilingual subtitles"
+  default_prompt: "Use $clip-subtitle-video to cut a source video segment and create an MP4 with styled bilingual subtitles."
