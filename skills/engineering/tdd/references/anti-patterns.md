@@ -4,6 +4,22 @@ Use this file when the task starts to look like TDD on paper but not in practice
 
 ## Pseudo-TDD patterns to avoid
 
+### 0. Obedient implementation of bad solutions
+
+The user proposes a solution, and the agent faithfully implements it under the TDD cycle — tests first, green, refactor — without ever questioning whether the solution itself is reasonable. The result: well-tested code that solves the wrong problem, fights the architecture, duplicates existing functionality, or is needlessly complex.
+
+This is the most dangerous TDD anti-pattern because it *looks* like good practice. The cycle runs cleanly. The tests pass. But the solution is worse than doing nothing — it adds code the team now has to maintain or undo.
+
+**Fix:** grill the proposed solution. Phase 1: nail down every fuzzy detail until the problem fits in one unambiguous sentence. Phase 2: challenge the approach — is this the simplest thing? Does it work with the architecture? Is there already a way to do this? If the answer points to a different approach, propose it. TDD without this step is just well-documented obedience.
+
+### -1. Implementing ambiguity
+
+The user says "add caching," "fix the login bug," or "make it faster," and the agent starts writing tests and code — filling in the gaps with guesses. The tests pass, but the implementation doesn't match what the user actually needed, because the user never said what they actually needed.
+
+Vague input is not a task. It's an invitation to grill. Every unasked question is a future revert.
+
+**Fix:** before any code, grill until all branch conditions, scope boundaries, inputs/outputs, error states, and acceptance criteria are nailed down. The answer to "what exactly do we need to do?" must fit in one unambiguous sentence. If the user can't answer, that's the real problem — not the code.
+
 ### 1. Implementation-first disguised as TDD
 
 The code is changed first and the test is added afterward as paperwork.
