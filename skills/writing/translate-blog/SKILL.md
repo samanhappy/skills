@@ -17,7 +17,18 @@ Translate English technical blog posts into idiomatic, developer-friendly Chines
 
 ### URL Fetching
 
-Use `scrapling` to extract clean markdown from URLs. Apply progressive fallback:
+**Preferred method** — use Jina AI Reader API for clean, AI-optimized markdown:
+
+```bash
+curl "https://r.jina.ai/<url>" \
+  -H "Authorization: Bearer $JINA_API_KEY" \
+  -H "Accept: text/markdown" \
+  -o <output-path>
+```
+
+Jina Reader returns clean article markdown — no nav, ads, sidebars. Usually no cleanup needed.
+
+**Fallback** — `scrapling` for pages Jina cannot reach (paywalled, blocked). Apply progressive fallback:
 
 **Level 1 — Lightweight** (static pages, no bot protection):
 
@@ -36,25 +47,25 @@ scrapling extract stealthy-fetch '<url>' <output-path> \
   --ai-targeted
 ```
 
-**Level 3 — Manual fallback**: If both fail, ask the user to copy-paste the article content into the conversation.
+**Level 3 — Manual fallback**: If both Jina and scrapling fail, ask user to copy-paste article content.
 
-- `{slug}`: 2-4 word kebab-case from the article title (e.g. `building-a-react-hook`)
+- `{slug}`: 2-4 word kebab-case from article title (e.g. `building-a-react-hook`)
 - `--ai-targeted`: optimizes extracted content for AI consumption (removes nav, ads, sidebars)
-- `--real-chrome --no-headless`: uses a visible Chrome instance to bypass bot detection
+- `--real-chrome --no-headless`: uses visible Chrome instance to bypass bot detection
 - `--network-idle --wait 5000`: waits for JS to finish rendering before extraction
 
 ### URL Content Cleanup
 
-Scraped content often includes non-article noise. Before translating, strip the following from the saved markdown file:
+Jina Reader output is typically clean — skip cleanup unless visible noise remains. For scrapling output, strip non-article noise from saved markdown before translating:
 
 - **Navigation**: site headers, breadcrumbs, sidebars, menus
 - **Footer clutter**: copyright notices, "related posts", "read next", newsletter signup forms, comment sections
 - **Sharing links**: "Share on Twitter/LinkedIn", "Discuss on Hacker News", etc.
 - **Author bio boxes**: author blurbs, "written by" cards at the bottom
 
-Keep only the **article body**: title, publication date, article text, code blocks, and embedded images. The result should read as a clean, standalone article.
+Keep only **article body**: title, publication date, article text, code blocks, embedded images. Result reads as clean standalone article.
 
-**Format repair**: scraped content often has formatting issues — broken paragraphs, missing line breaks between sections, orphaned list items, inconsistent heading levels, stray punctuation, or garbled whitespace. Fix these during cleanup so the source is well-structured before translation begins.
+**Format repair**: scraped content often has formatting issues — broken paragraphs, missing line breaks between sections, orphaned list items, inconsistent heading levels, stray punctuation, garbled whitespace. Fix these during cleanup so source is well-structured before translation.
 
 ## Output
 
