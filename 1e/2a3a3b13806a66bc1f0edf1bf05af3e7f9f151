@@ -1,0 +1,22 @@
+skills/engineering/optimize-prompt/SKILL.md
+  s_24f9d58d2e32f8::t_c9650a1a0f20bd 1-143
+README.md
+  s_24f9d58d2e32f8::t_24fca06f2c0dbf 53
+  s_24f9d58d2e32f8::t_d8b1f72a61475a 14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "1e2a3a3b13806a66bc1f0edf1bf05af3e7f9f151",
+  "prompts": {},
+  "sessions": {
+    "s_24f9d58d2e32f8": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_fd0f57fcfffeXPu289J4sGznO6",
+        "model": "x-preview-f-free"
+      },
+      "human_author": "samanhappy <samanhappy@gmail.com>"
+    }
+  }
+}
