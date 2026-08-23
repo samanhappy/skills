@@ -11,6 +11,7 @@ This repository is where I collect the skills I actually want my coding agents t
 Current skills:
 
 - **[tdd](./skills/engineering/tdd/SKILL.md)** — Test-driven development with a Red → Green → Refactor loop.
+- **[optimize-prompt](./skills/engineering/optimize-prompt/SKILL.md)** — Diagnose and optimize agent prompts via decision-chain analysis and invariant fixes.
 - **[clip-subtitle-video](./skills/media/clip-subtitle-video/SKILL.md)** — Clip videos and burn bilingual subtitles into MP4 deliverables.
 - **[write-blog](./skills/writing/write-blog/SKILL.md)** — Write deep-analysis technical blog posts in Chinese.
 - **[translate-blog](./skills/writing/translate-blog/SKILL.md)** — Translate English technical blog posts to Chinese with glossary-driven terminology consistency.
@@ -49,6 +50,7 @@ That philosophy matches how I work elsewhere too:
 ### Engineering
 
 - **[tdd](./skills/engineering/tdd/SKILL.md)** — Test-driven development with a red-green-refactor loop.
+- **[optimize-prompt](./skills/engineering/optimize-prompt/SKILL.md)** — Diagnose and optimize agent prompts via decision-chain analysis and invariant fixes.
 
 ### Media
 
