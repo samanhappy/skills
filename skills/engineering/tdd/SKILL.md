@@ -81,6 +81,10 @@ Do not skip this step just because the user sounds confident. Confidence and cor
 
 If the problem is too fuzzy to proceed, grill until it isn't. If the approach doesn't survive the challenge, surface the better alternative and get alignment. Only then move forward.
 
+**Calibrate the grill to the task.** Grill relentlessly on ambiguous, high-risk, or hard-to-reverse work; grill lightly on crisp, small, low-risk changes. If the user already gave a precise spec — concrete inputs, outputs, error states, and acceptance criteria — one confirmation round is enough. Interrogation for its own sake is as bad as skipping it.
+
+**If the user cannot answer, do not deadlock.** An unanswerable question is the first problem to solve — but when the answer is genuinely unavailable rather than fuzzy, consolidate all open questions into one round and ask once. If answers are still missing, state your assumptions explicitly, mark them as assumptions in the final report, and proceed — or switch to Best-Effort Mode if the ambiguity blocks writing a meaningful test. Silent guessing is not allowed; explicit, reported assumptions are.
+
 ### 2. Understand the task
 
 Classify the work:
@@ -203,6 +207,8 @@ Stop and call out the issue before proceeding if:
 - you are about to claim validation without running a real command
 
 ## Gotchas
+
+If the task starts to look like TDD on paper but not in practice — tests passing, direction wrong — load [the anti-patterns guide](./references/anti-patterns.md) and check the work against it before continuing.
 
 | What happened | Rule |
 | --- | --- |
