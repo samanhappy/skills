@@ -1,0 +1,16 @@
+skills/engineering/tdd/SKILL.md
+  h_18676a549cd52a 84-87,211-212
+skills/engineering/tdd/references/anti-patterns.md
+  h_18676a549cd52a 7,15,23,29,35,41,47,53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "f5dc30b29eaddcc96887b767508ebdbf0edff5d9",
+  "prompts": {},
+  "humans": {
+    "h_18676a549cd52a": {
+      "author": "samanhappy <samanhappy@gmail.com>"
+    }
+  }
+}
