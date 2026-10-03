@@ -6,264 +6,110 @@ argument-hint: 'Describe the bug, feature, or change to drive with TDD.'
 
 # TDD: Red → Green → Refactor
 
-Use this skill when the user wants a code change to be driven by tests first.
-
-This skill is for **methodology**, not repository-specific release workflow. It helps the agent:
-
-- understand the behavior to protect or introduce
-- write a failing test before implementation when feasible
-- make the smallest change needed to turn the test green
-- refactor only after tests pass
-- adapt to the target repository instead of assuming Jest, pytest, pnpm, or any single stack
+A disciplined, feedback-driven workflow that turns requirements into verified behavior. Drives changes with focused tests first, keeps changes minimal, and guards against both model complacency and implementation-first drift.
 
 ## When to Use
 
-Use this skill for:
+- Bug fixes requiring regression prevention
+- New features requiring behavior verification
+- Structural refactors that must preserve existing semantics
+- Explicit requests for TDD, "test first", or "Red-Green-Refactor"
 
-- bug fixes that need a regression test
-- new features that should start with a behavior test
-- risky refactors where test coverage should guard the change
-- requests like “use TDD”, “write the test first”, “add a regression test”, or “Red Green Refactor”
-
-Do **not** use this skill for:
-
-- tiny text-only edits with no behavior change
-- pure documentation work
-- one-off exploratory scripts where tests add no value
-- tasks where the user explicitly asks to skip tests
-- pure visual layout, styling, and aesthetic tweaks (e.g., CSS padding, color palettes, animations) — use the **UI & Visual Verification Workflow** instead of forcing unit tests
-
-## Core Rules
-
-1. **Grill relentlessly before you write.** Inspect the codebase first, then nail down every fuzzy detail, branch condition, and acceptance criterion. Challenge the proposed solution — is it the simplest, does it fit the architecture, is there already a way to do it? A well-tested answer to the wrong question is still wrong.
-2. **Test first when feasible.** Prefer a failing test before changing implementation.
-3. **Protect behavior, not internals.** Test externally visible outcomes whenever possible.
-4. **Go minimal in Green.** Write the smallest implementation that satisfies the failing test.
-5. **Refactor only on green.** If tests are red, do not mix in cleanup work.
-6. **Keep tests isolated and idempotent.** Tests must leave no persistent traces — clean up mocks, temp files, and database state.
-7. **Adapt to the repo.** Detect the actual test framework, test file layout, and validation commands from the repository.
-8. **State limits clearly.** If a true failing test cannot be written, explain why and switch to best-effort mode explicitly.
-
-## Procedure
-
-### 1. Grill relentlessly (before any code)
-
-**The worst code is code that shouldn't have been written — either because the problem wasn't understood, or the proposed solution was wrong.**
-
-**Inspect the codebase first.** Never interrogate in a vacuum. Before firing questions at the user or challenging an approach, inspect the relevant files, existing utilities, conventions, and test setups. Ground your questions in real repository evidence ("I noticed `TokenHelper` already handles X; why do we need Y?") rather than asking generic questions from zero context.
-
-Before typing a single line of test or implementation, grill on two fronts. Do not proceed until every branch node is resolved.
+**Do NOT use for:**
+- Pure text, comments, or documentation changes
+- Exploratory throwaway scripts
+- Pure visual styling, layout, or aesthetic tweaks (use Before/After visual comparison instead)
 
 ---
 
-**Phase 1: Nail down the problem (clarity before correctness)**
+## Core Invariants
 
-Most user inputs are fuzzy. A bug report that says "it crashes when I click save." A feature request that says "add caching." A refactor ask that says "clean up this module." None of these are actionable. Grill until the ambiguity is gone:
-
-- **What exactly happens, and what should happen?** Get concrete: inputs, outputs, error messages, stack traces, timing. "It's slow" → where, under what load, what's the number? "It's broken" → broken how, since when, what's the first observable symptom?
-- **What's the scope boundary?** What's in, what's explicitly out? If the user says "add error handling," do they mean network errors, validation errors, panics, or all three? If they say "refactor the auth module," which files, which behaviors must not change?
-- **What are the branch conditions?** For every conditional in the task — "if this, then that" — ask: is this branch defined? If the user says "if the API returns an error, show a message," what about timeout vs 4xx vs 5xx? What about when the error body is empty?
-- **What's the acceptance criterion?** How will we know this is done? "Make it faster" → from what to what, measured how? "Fix the login bug" → on which browser/device, with which auth provider, under which conditions?
-
-Keep asking until the answer to "what exactly do we need to do?" fits in one unambiguous sentence. If the user can't answer, that's the first problem to solve — not the code.
-
----
-
-**Phase 2: Challenge the solution (correctness after clarity)**
-
-Once the problem is nailed down, question whether the proposed solution is the right one:
-
-- **Problem framing:** Is this the root cause, or a symptom? Has this been "fixed" before — and why didn't it stick?
-- **Simplest fix:** What's the minimal thing that could work? What alternatives were considered?
-- **Architecture fit:** Does the proposed approach work with the grain of the codebase, or fight it? Is there already a function, utility, or pattern that does this?
-- **Hidden assumptions:** What must be true for this to work? What external systems, invariants, or undocumented contracts does it depend on? Who else depends on the code being changed?
-- **Push back:** If the proposed solution is needlessly complex → propose a simpler one and explain why. If it duplicates existing functionality → point to the existing solution. If the problem is better solved elsewhere (upstream, in config, in process) → say so explicitly.
+1. **Inspect before asking.** Ground all questions and challenges in existing code and test conventions. Never interrogate in a vacuum.
+2. **Challenge the approach.** Confidence is not correctness. If a proposed solution duplicates existing tools, fights architecture, or overcomplicates, propose the simpler alternative.
+3. **Behavior over internals.** Assert externally observable outcomes, not private variables, implementation details, or CSS classes.
+4. **Valid Red only.** A failing test is only valid when it cleanly fails on an asserted behavioral contract. Syntax errors, bad imports, or broken harnesses do not count as Red.
+5. **Minimal Green.** Write only the code required to make the failing test pass. No drive-by refactoring during Green.
+6. **Refactor only on Green.** Clean up duplication and structure only when all tests pass, and re-run tests after each step.
+7. **Zero pollution.** Tests must be isolated and idempotent. Teardown temporary files, reset mocks, and rollback state mutations.
+8. **Honor repository reality.** Detect and mirror local test frameworks, runners, and conventions. Never assume stacks from memory.
 
 ---
 
-Do not skip this step just because the user sounds confident. Confidence and correctness are uncorrelated. A crisp answer to a dumb question is still dumb. An elegant implementation of the wrong problem is still wrong.
+## Workflow: The State Machine
 
-If the problem is too fuzzy to proceed, grill until it isn't. If the approach doesn't survive the challenge, surface the better alternative and get alignment. Only then move forward.
+```text
+[0. Frame & Challenge] ──> [1. Red (Valid Fail)] ──> [2. Green (Minimal Fix)] ──> [3. Refactor on Green]
+        │                           ▲                                                     │
+        │                           └──────────────── (Next slice) ───────────────────────┘
+        └──────── (Pure visual UI change) ──> [Visual Comparison (Before/After Screenshots)]
+```
 
-**Calibrate the grill to the task.** Grill relentlessly on ambiguous, high-risk, or hard-to-reverse work; grill lightly on crisp, small, low-risk changes. If the user already gave a precise spec — concrete inputs, outputs, error states, and acceptance criteria — one confirmation round is enough. Interrogation for its own sake is as bad as skipping it.
+### 0. Frame & Challenge (Before Touching Code)
 
-**If the user cannot answer, do not deadlock.** An unanswerable question is the first problem to solve — but when the answer is genuinely unavailable rather than fuzzy, consolidate all open questions into one round and ask once. If answers are still missing, state your assumptions explicitly, mark them as assumptions in the final report, and proceed — or switch to Best-Effort Mode if the ambiguity blocks writing a meaningful test. Silent guessing is not allowed; explicit, reported assumptions are.
+1. **Inspect first**: Read relevant implementation and nearby test files. Discover local test commands, runners, and conventions before forming opinions.
+2. **Calibrate clarity**:
+   - *Clear spec*: Confirm scope and proceed immediately.
+   - *Ambiguous spec*: Clarify inputs, outputs, branch conditions, and acceptance criteria. Consolidate questions into a single round; do not interrogate incrementally. If blocked by unanswerable unknowns, state explicit assumptions and proceed.
+3. **Challenge the solution (Immunize against sycophancy)**:
+   - Does this solve the root cause or mask a symptom?
+   - Is there already an existing helper, utility, or pattern in the codebase?
+   - Is there a simpler, lower-maintenance alternative? Push back respectfully if the user's plan is over-engineered.
+4. **Draft the test list**: For non-trivial work, list discrete behavioral slices from simplest happy path to edge cases. Tackle one slice per micro-cycle.
 
-### 2. Understand the task & draft the test list
+### 1. Write the Failing Test (Red)
 
-Classify the work:
+- Write the narrowest test capturing the intended behavior or reproducing the bug.
+- Run the targeted test command and verify it fails **for the expected reason**.
+- **Gate Check**: If the test fails due to syntax error, missing import, or runner crash, fix the harness first. If the test passes immediately, the bug was not reproduced or the test is toothless.
+- **UI Boundary Rule**:
+  - *UI Behavior & States* (validation, modal visibility, keyboard nav, network states): Apply TDD using user-centric queries (`getByRole`, `findByText`). Never assert internal component state.
+  - *Pure Visual Styling* (padding, colors, typography, responsiveness): **Waive unit tests.** Do not assert CSS classes. Instead, take a **Before screenshot** using browser tools.
 
-- **Bug fix** → reproduce existing broken behavior with a regression test
-- **Feature** → define expected behavior with a sequence of focused tests
-- **Refactor-safe change** → tighten or add tests around current behavior before changing structure
+### 2. Implement the Smallest Change (Green)
 
-For non-trivial features or multi-step fixes, draft a concise **test list** (behavioral slices ordered from simplest happy path to edge cases). Break work into micro-cycles: drive one slice through `Red → Green → Refactor`, then take the next slice. Do not attempt to satisfy all requirements in a single monolithic test leap.
+- Write only enough production code to make the failing test pass.
+- Resist the urge to clean up surrounding code, rename modules, or fix unrelated issues.
+- Re-run the narrow test command and verify it passes cleanly.
 
-Read the relevant implementation and nearby tests first. Match the repository's naming, assertion style, fixtures, and test placement.
+### 3. Refactor on Green
 
-For repository adaptation, load [the adaptation guide](./references/adaptation-guide.md).
+- Once green, eliminate duplication, improve clarity, and align with codebase conventions.
+- Verify test cleanliness: ensure mocks reset, temp files unlink, and state resets cleanly.
+- Re-run tests after each refactor step to guarantee behavior remains intact.
+- If slices remain on the test list, advance to the next slice (back to **Red**).
 
-### 3. Find the test seam
+### 4. Broader Validation & Outcome
 
-Before writing code, decide:
+- Run the repository's broader test suite or lint/typecheck command to catch regressions.
+- For UI visual changes, capture the **After screenshot** under the identical viewport and present Before/After evidence.
+- If environment limits or architecture gaps block a true test, state the blocker explicitly (Best-Effort Mode) rather than faking validation.
 
-- which public behavior should be asserted
-- where the test belongs
-- what is the smallest test scope that proves the change
-- which command can run the narrowest useful test slice
-
-Prefer the narrowest test that captures the real behavior. A focused regression test beats a huge integration detour.
-
-### 4. Write the failing test (Red)
-
-Write the test before changing implementation.
-
-For bug fixes:
-- reproduce the bug in one test
-- assert the correct behavior, not the broken one
-
-For features:
-- write a behavior test that describes the intended outcome
-- keep the first test small enough to drive one increment
-
-Then run the smallest relevant test command and confirm it fails for the expected reason.
-
-**Distinguish expected behavioral failure from broken test harness:**
-A valid Red means the test executed cleanly and failed because the asserted behavior is missing or incorrect (e.g., an assertion mismatch, or a missing method/type that the compiler/runner explicitly rejects). If the test crashes due to typos, wrong import paths, missing test runner configuration, broken fixtures, or runtime errors inside test setup, that is a broken test setup, NOT a valid Red. Fix the setup first.
-
-If the test passes immediately, one of three things is true:
-
-- the bug was not reproduced
-- the code already works
-- the test is too weak
-
-Fix that before moving on.
-
-### 5. Implement the smallest change (Green)
-
-Change production code only after the failing test exists.
-
-Rules for Green:
-
-- keep the change tightly scoped
-- avoid drive-by refactors
-- do not change unrelated behavior just because the file is open
-- prefer existing abstractions unless the test proves a new seam is necessary
-
-Re-run the narrowest relevant tests until they pass.
-
-### 6. Refactor on green
-
-Once the tests are green:
-
-- remove duplication
-- improve names and structure
-- align with local architecture and conventions
-- keep behavior unchanged
-- verify test isolation: ensure tests clean up after themselves (reset mocks, delete temporary files, rollback test records)
-
-Run the same tests again after each meaningful cleanup step. If more slices remain on your test list, proceed to the next slice (Red).
-
-### 7. Run broader validation
-
-After the focused tests are green, run the repository's broader validation command set.
-
-Detection order:
-
-1. repository instructions such as `AGENTS.md`, `copilot-instructions.md`, or local customization files
-2. package manifests and scripts
-3. test/build/lint configuration files
-4. existing CI workflow commands
-5. existing contributor conventions visible in nearby files
-
-If no reliable command can be determined, state that explicitly instead of pretending validation happened.
-
-### 8. Report outcome
-
-Summarize:
-
-- what failing test was added or updated
-- what implementation changed to make it pass
-- what validation was run
-- whether any limits or follow-up work remain
-
-## UI & Visual Verification Workflow
-
-For user interface work, distinguish between **behavior** and **visual appearance**:
-
-### 1. UI Behavior & State Transitions (TDD applies)
-- **Scope**: Form validation, dynamic conditional rendering, modal open/close, custom hooks, network loading/error states, keyboard shortcuts, and accessibility (A11y) attributes.
-- **Method**: Use user-centric assertions (e.g. `@testing-library`, Playwright component testing).
-- **Rule**: Assert visible text, ARIA roles, and accessible names (`getByRole`, `findByText`). Never assert internal component state or private instance methods.
-
-### 2. Visual Layout, Styling, & Aesthetics (TDD is NOT enforced; visual comparison required)
-- **Scope**: CSS adjustments, padding/margin tweaks, color palettes, responsive breakpoints, typography, and pure animations.
-- **Rule**: **Do NOT write brittle unit tests asserting CSS classes or computed styles** (e.g. `toHaveClass('p-4')`). TDD is not enforced for pure aesthetics.
-- **Mandatory Visual Comparison**:
-  1. Capture a **Before** screenshot of the affected component or page using browser tools (`openBrowserPage`, `screenshotPage`, etc.) before editing.
-  2. Implement the visual change.
-  3. Capture an **After** screenshot under the exact same viewport and application state.
-  4. Present both screenshots side-by-side or consecutively in the response to visually verify the outcome.
-
-## Best-Effort Mode
-
-Sometimes strict Red is blocked by environment or architecture. Examples:
-
-- external systems cannot be reproduced locally
-- the code has no practical seam yet and creating one would be a larger design task
-- the repository lacks a runnable test setup
-
-In those cases:
-
-1. say why strict TDD is blocked
-2. add the closest useful test if possible
-3. keep the implementation minimal and reversible
-4. describe what test should exist once the blocker is removed
-
-Best-effort mode is an exception, not the default.
+---
 
 ## Hard Stops
 
-Stop and call out the issue before proceeding if:
+Cease execution and resolve immediately if:
 
-- you are interrogating the user with generic questions without having inspected relevant code and existing patterns first
-- the user's requirements are still fuzzy — branch conditions, scope boundaries, inputs/outputs, or acceptance criteria are undefined — and you haven't grilled to resolve them
-- you have not questioned the user's proposed solution — clarity is not correctness; confidence is not correctness
-- the user's approach fights the architecture, duplicates existing functionality, or is needlessly complex — and you haven't proposed a better alternative
-- you are about to implement behavior without first checking whether a test can capture it
-- the failing test failed due to a broken harness, syntax error, or bad import rather than an asserted behavioral mismatch
-- you are writing brittle unit tests asserting CSS class names or computed pixel styles instead of testing behavior
-- you are about to complete a visual UI change without capturing Before and After comparison screenshots (when a browser tool is available)
-- you are about to refactor unrelated code during the Green phase
-- your tests leave side effects or persistent state (temp files, dirty DB rows, unreset mocks)
-- you cannot identify where tests belong and have not inspected existing test patterns
-- you are about to claim validation without running a real command
+- You are asking generic questions without inspecting relevant repository code first.
+- You are implementing an obviously flawed or redundant approach without challenging it.
+- You treat a compilation error, bad import, or broken test setup as a valid "Red" test.
+- You write brittle unit tests asserting CSS classes or computed styles instead of behavior.
+- You modify unrelated code or perform refactoring while the test is still Red or in the Green phase.
+- Your tests leave persistent disk files, unreset mocks, or mutated global state.
+- You claim tests passed or validation succeeded without executing a real command.
+
+---
 
 ## Gotchas
 
-If the task starts to look like TDD on paper but not in practice — tests passing, direction wrong — load [the anti-patterns guide](./references/anti-patterns.md) and check the work against it before continuing.
+| Symptom | Root Cause | Rule |
+| :--- | :--- | :--- |
+| Bombarding user with generic questions | Lazy grilling | Inspect codebase first; anchor questions in real code facts |
+| Faithfully implementing a flawed design | Sycophancy | Challenge solution framing, architecture fit, and minimal alternatives |
+| Test fails on syntax or bad import | Broken harness | Fix test setup first; Red requires an asserted contract mismatch |
+| Testing CSS classes (`toHaveClass('px-4')`) | Brittle testing | Waive TDD for pure visual styling; use Before/After screenshot comparison |
+| Big monolithic test jump | Oversized increment | Break requirements into a slice-by-slice test list; drive micro-cycles |
+| Refactoring while trying to pass test | Tangled concerns | Get to Green with the smallest change first, refactor only on Green |
+| Tests fail when run in sequence | State leak / pollution | Ensure idempotent cleanup: reset mocks, wipe temp files, rollback DB |
+| Claiming success without run | Fake validation | Execute the narrowest real test command; report failures or limits honestly |
 
-| What happened | Rule |
-| --- | --- |
-| The agent bombarded the user with questions without checking code | Inspect the codebase first; ground questions and challenges in real repo facts |
-| The user's request was vague — "add caching," "fix the login," "make it faster" | Grill until the problem is one unambiguous sentence; don't implement ambiguity |
-| The agent accepted the user's solution without questioning it | Grill the approach — confidence is not correctness; propose alternatives when warranted |
-| The agent jumped straight to implementation | Go back and write or strengthen the test first |
-| The failing test failed for the wrong reason (syntax, bad import, setup error) | Fix the test setup; Red must be an unmet behavioral expectation |
-| The test asserted CSS classes or pixel dimensions | Do not force TDD on pure visual styling; use Before/After screenshot comparison |
-| The agent modified UI appearance blindly without visual confirmation | Capture Before and After screenshots to verify visual layout and appearance |
-| The test left lingering files, dirty DB rows, or mutated global state | Ensure clean teardown and mock restoration; keep tests isolated and idempotent |
-| The first test required too much setup | Shrink scope; choose a narrower seam |
-| The fix needed many files immediately | Re-check whether the first test increment is too large; break into smaller slices |
-| Refactor work expanded after tests passed | Keep refactor separate from behavior change and keep re-running tests |
-| The repo uses unfamiliar tooling | Detect and mirror local patterns; do not assume a stack from memory |
-
-## Output Expectations
-
-A good TDD run usually produces:
-
-- one new or updated failing test that demonstrated the need for change (for behavioral/logic changes)
-- one minimal implementation change that made it pass
-- evidence of focused and broader validation
-- Before and After comparison screenshots (for visual UI changes)
-- a clear note when strict TDD could not be followed end-to-end
