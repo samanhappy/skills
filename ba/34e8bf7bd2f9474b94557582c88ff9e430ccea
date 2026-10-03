@@ -1,0 +1,19 @@
+skills/engineering/tdd/SKILL.md
+  s_a55b503905188d::t_fae02aab1231c3 9,13-16,18-21,25,27-34,38,40-45,47,49-57,59,61-66,68,70-72,74,76-79,81,83-85,87,91,93-99,101,103,105-114
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ba34e8bf7bd2f9474b94557582c88ff9e430ccea",
+  "prompts": {},
+  "sessions": {
+    "s_a55b503905188d": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "0b2c841c-36f5-4705-8931-3b1f73cb1efd",
+        "model": "unknown"
+      },
+      "human_author": "samanhappy <samanhappy@gmail.com>"
+    }
+  }
+}
