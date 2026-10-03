@@ -34,13 +34,14 @@ Do **not** use this skill for:
 
 ## Core Rules
 
-1. **Grill relentlessly before you write.** Phase 1: nail down every fuzzy detail, branch condition, and acceptance criterion — ambiguity kills. Phase 2: challenge the proposed solution — is it the simplest, does it fit the architecture, is there already a way to do it? A well-tested answer to the wrong question is still wrong.
+1. **Grill relentlessly before you write.** Inspect the codebase first, then nail down every fuzzy detail, branch condition, and acceptance criterion. Challenge the proposed solution — is it the simplest, does it fit the architecture, is there already a way to do it? A well-tested answer to the wrong question is still wrong.
 2. **Test first when feasible.** Prefer a failing test before changing implementation.
 3. **Protect behavior, not internals.** Test externally visible outcomes whenever possible.
 4. **Go minimal in Green.** Write the smallest implementation that satisfies the failing test.
 5. **Refactor only on green.** If tests are red, do not mix in cleanup work.
-6. **Adapt to the repo.** Detect the actual test framework, test file layout, and validation commands from the repository.
-7. **State limits clearly.** If a true failing test cannot be written, explain why and switch to best-effort mode explicitly.
+6. **Keep tests isolated and idempotent.** Tests must leave no persistent traces — clean up mocks, temp files, and database state.
+7. **Adapt to the repo.** Detect the actual test framework, test file layout, and validation commands from the repository.
+8. **State limits clearly.** If a true failing test cannot be written, explain why and switch to best-effort mode explicitly.
 
 ## Procedure
 
@@ -48,7 +49,9 @@ Do **not** use this skill for:
 
 **The worst code is code that shouldn't have been written — either because the problem wasn't understood, or the proposed solution was wrong.**
 
-Before typing a single line, grill on two fronts. Do not proceed until every branch node is resolved.
+**Inspect the codebase first.** Never interrogate in a vacuum. Before firing questions at the user or challenging an approach, inspect the relevant files, existing utilities, conventions, and test setups. Ground your questions in real repository evidence ("I noticed `TokenHelper` already handles X; why do we need Y?") rather than asking generic questions from zero context.
+
+Before typing a single line of test or implementation, grill on two fronts. Do not proceed until every branch node is resolved.
 
 ---
 
@@ -85,13 +88,15 @@ If the problem is too fuzzy to proceed, grill until it isn't. If the approach do
 
 **If the user cannot answer, do not deadlock.** An unanswerable question is the first problem to solve — but when the answer is genuinely unavailable rather than fuzzy, consolidate all open questions into one round and ask once. If answers are still missing, state your assumptions explicitly, mark them as assumptions in the final report, and proceed — or switch to Best-Effort Mode if the ambiguity blocks writing a meaningful test. Silent guessing is not allowed; explicit, reported assumptions are.
 
-### 2. Understand the task
+### 2. Understand the task & draft the test list
 
 Classify the work:
 
 - **Bug fix** → reproduce existing broken behavior with a regression test
-- **Feature** → define expected behavior with a new test
+- **Feature** → define expected behavior with a sequence of focused tests
 - **Refactor-safe change** → tighten or add tests around current behavior before changing structure
+
+For non-trivial features or multi-step fixes, draft a concise **test list** (behavioral slices ordered from simplest happy path to edge cases). Break work into micro-cycles: drive one slice through `Red → Green → Refactor`, then take the next slice. Do not attempt to satisfy all requirements in a single monolithic test leap.
 
 Read the relevant implementation and nearby tests first. Match the repository's naming, assertion style, fixtures, and test placement.
 
@@ -122,6 +127,9 @@ For features:
 
 Then run the smallest relevant test command and confirm it fails for the expected reason.
 
+**Distinguish expected behavioral failure from broken test harness:**
+A valid Red means the test executed cleanly and failed because the asserted behavior is missing or incorrect (e.g., an assertion mismatch, or a missing method/type that the compiler/runner explicitly rejects). If the test crashes due to typos, wrong import paths, missing test runner configuration, broken fixtures, or runtime errors inside test setup, that is a broken test setup, NOT a valid Red. Fix the setup first.
+
 If the test passes immediately, one of three things is true:
 
 - the bug was not reproduced
@@ -151,8 +159,9 @@ Once the tests are green:
 - improve names and structure
 - align with local architecture and conventions
 - keep behavior unchanged
+- verify test isolation: ensure tests clean up after themselves (reset mocks, delete temporary files, rollback test records)
 
-Run the same tests again after each meaningful cleanup step.
+Run the same tests again after each meaningful cleanup step. If more slices remain on your test list, proceed to the next slice (Red).
 
 ### 7. Run broader validation
 
@@ -198,11 +207,14 @@ Best-effort mode is an exception, not the default.
 
 Stop and call out the issue before proceeding if:
 
+- you are interrogating the user with generic questions without having inspected relevant code and existing patterns first
 - the user's requirements are still fuzzy — branch conditions, scope boundaries, inputs/outputs, or acceptance criteria are undefined — and you haven't grilled to resolve them
 - you have not questioned the user's proposed solution — clarity is not correctness; confidence is not correctness
 - the user's approach fights the architecture, duplicates existing functionality, or is needlessly complex — and you haven't proposed a better alternative
 - you are about to implement behavior without first checking whether a test can capture it
+- the failing test failed due to a broken harness, syntax error, or bad import rather than an asserted behavioral mismatch
 - you are about to refactor unrelated code during the Green phase
+- your tests leave side effects or persistent state (temp files, dirty DB rows, unreset mocks)
 - you cannot identify where tests belong and have not inspected existing test patterns
 - you are about to claim validation without running a real command
 
@@ -212,12 +224,14 @@ If the task starts to look like TDD on paper but not in practice — tests passi
 
 | What happened | Rule |
 | --- | --- |
+| The agent bombarded the user with questions without checking code | Inspect the codebase first; ground questions and challenges in real repo facts |
 | The user's request was vague — "add caching," "fix the login," "make it faster" | Grill until the problem is one unambiguous sentence; don't implement ambiguity |
 | The agent accepted the user's solution without questioning it | Grill the approach — confidence is not correctness; propose alternatives when warranted |
 | The agent jumped straight to implementation | Go back and write or strengthen the test first |
-| The failing test failed for the wrong reason | Fix the test setup before coding the solution |
+| The failing test failed for the wrong reason (syntax, bad import, setup error) | Fix the test setup; Red must be an unmet behavioral expectation |
+| The test left lingering files, dirty DB rows, or mutated global state | Ensure clean teardown and mock restoration; keep tests isolated and idempotent |
 | The first test required too much setup | Shrink scope; choose a narrower seam |
-| The fix needed many files immediately | Re-check whether the first test increment is too large |
+| The fix needed many files immediately | Re-check whether the first test increment is too large; break into smaller slices |
 | Refactor work expanded after tests passed | Keep refactor separate from behavior change and keep re-running tests |
 | The repo uses unfamiliar tooling | Detect and mirror local patterns; do not assume a stack from memory |
 

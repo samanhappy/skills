@@ -20,37 +20,59 @@ Vague input is not a task. It's an invitation to grill. Every unasked question i
 
 **Fix:** before any code, grill until all branch conditions, scope boundaries, inputs/outputs, error states, and acceptance criteria are nailed down. The answer to "what exactly do we need to do?" must fit in one unambiguous sentence. If the user can't answer, that's the real problem — not the code.
 
-### 3. Implementation-first disguised as TDD
+### 3. Interrogating in a vacuum (Lazy grilling)
+
+The agent starts peppering the user with questions without first inspecting the codebase. It asks "where should this go?", "what format should this be?", or "does a helper exist?" when 30 seconds of searching the repo would answer it. Or it challenges the user's approach with generic questions rather than concrete codebase evidence.
+
+Lazy grilling wastes user attention and signals that the agent hasn't done its homework.
+
+**Fix:** read the relevant files, existing utilities, conventions, and test patterns *before* asking or challenging. When you do grill, anchor every question in specific code facts ("I see `formatDate` in `src/utils`, should we extend it or does this need a different timezone rule?").
+
+### 4. Implementation-first disguised as TDD
 
 The code is changed first and the test is added afterward as paperwork.
 
 **Fix:** revert mentally to the behavioral gap, write the failing test, and only then continue.
 
-### 4. Testing internals instead of behavior
+### 5. Testing internals instead of behavior
 
 The test locks in private helpers, exact call counts, or fragile structure instead of user-visible outcomes.
 
 **Fix:** move the assertion up to the observable contract whenever possible.
 
-### 5. Oversized first increment
+### 6. Oversized first increment (The monolithic leap)
 
 The first test requires many files, complex fixtures, and a large design decision before any behavior is proven.
 
-**Fix:** shrink to the smallest observable slice that still matters.
+**Fix:** shrink to the smallest observable slice that still matters. Maintain a test list and execute micro-cycles (`Red → Green → Refactor → Next slice`).
 
-### 6. Refactor mixed into Green
+### 7. Confusing broken harness with Red
+
+The test "fails", but because of a typo, wrong import path, missing test package, or syntax error in test setup. The agent counts this as "Red" and starts writing production code.
+
+A crash in the harness is not a behavioral failure. It proves nothing about whether the test actually catches the missing behavior.
+
+**Fix:** fix test setup and syntax first. A valid Red must fail because the production code does not yet satisfy the asserted behavioral contract.
+
+### 8. Refactor mixed into Green
 
 The change that makes the test pass also renames modules, rearranges architecture, or rewrites nearby code.
 
 **Fix:** get to green first, then refactor in separate, test-backed cleanup steps.
 
-### 7. Fake validation
+### 9. Leaking test pollution
+
+The test writes files to the workspace, modifies environment variables, alters persistent database rows, or fails to reset mocks. The first run passes, but subsequent runs fail or pollute other test suites.
+
+**Fix:** make every test isolated and idempotent. Teardown fixtures, reset mocks (`mockReset`/`restore`), delete temp files, and rollback database transactions.
+
+### 10. Fake validation
 
 The agent says tests passed or the change is safe without running a real command.
 
 **Fix:** run a real command and report it accurately. If no command exists, say so plainly.
 
-### 8. Best-effort mode as a convenience excuse
+### 11. Best-effort mode as a convenience excuse
 
 Strict TDD is skipped because writing the test feels slower.
 
