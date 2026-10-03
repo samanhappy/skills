@@ -1,0 +1,26 @@
+README.md
+  s_f404b6a9103857::t_78d367fbec47d4 29
+  s_f404b6a9103857::t_7de1574874b818 52
+  s_f404b6a9103857::t_105ec4fc6f9dbe 13
+skills/engineering/verified-dev/SKILL.md
+  s_f404b6a9103857::t_54d67a985b9587 13
+  s_f404b6a9103857::t_aefc24040e7659 2-4,7,9,16,21
+skills/engineering/README.md
+  s_f404b6a9103857::t_34780d8500c0fc 5-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ab54a06d56ac65635b2401871a5e4a6a2ccbe7d8",
+  "prompts": {},
+  "sessions": {
+    "s_f404b6a9103857": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "5ea8d59c-ddf3-490f-974c-dc7340f99c39",
+        "model": "unknown"
+      },
+      "human_author": "samanhappy <samanhappy@gmail.com>"
+    }
+  }
+}
