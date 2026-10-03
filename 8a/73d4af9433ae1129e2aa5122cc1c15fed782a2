@@ -1,0 +1,25 @@
+skills/engineering/tdd/SKILL.md
+  s_46057d2fa26774::t_4244667a4473bd 34
+  s_46057d2fa26774::t_e66c2e621fa389 190-207
+  s_46057d2fa26774::t_57b1027f80b250 235-236,253-254,265,268
+skills/engineering/tdd/references/anti-patterns.md
+  s_46057d2fa26774::t_8c7220479a598e 81-92,97,105-106
+skills/engineering/tdd/references/adaptation-guide.md
+  s_46057d2fa26774::t_e57aded4dd755e 22,32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8a73d4af9433ae1129e2aa5122cc1c15fed782a2",
+  "prompts": {},
+  "sessions": {
+    "s_46057d2fa26774": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "2cce4861-be93-43f9-9395-deafaf90edd6",
+        "model": "unknown"
+      },
+      "human_author": "samanhappy <samanhappy@gmail.com>"
+    }
+  }
+}
