@@ -1,24 +1,24 @@
 ---
-name: tdd
-description: 'Use Test-Driven Development for bug fixes, features, regression tests, and safe refactors. Follows Red → Green → Refactor, writes failing tests first, adapts to the repository''s test framework and verification commands, and avoids implementation-first changes. Triggers: TDD, test-first, red green refactor, regression test, behavior test, failing test first, use TDD to fix bug, write tests before code, 用 TDD 修 bug, 先写测试, 回归测试, 红绿重构.'
-argument-hint: 'Describe the bug, feature, or change to drive with TDD.'
+name: verified-dev
+description: 'Disciplined, verification-driven engineering workflow for features, bug fixes, and safe refactors. Enforces Red → Green → Refactor for logic, before/after visual proof for UI, and rigorous validation before completion. Triggers: verified-dev, verified dev, implement feature, build feature, safe dev, tdd, test-first, red green refactor, fix bug with test, 严谨开发, 测试驱动, 功能开发.'
+argument-hint: 'Describe the feature, bug, or change to develop with verified workflow.'
 ---
 
-# TDD: Red → Green → Refactor
+# Verified Development: Red → Green → Refactor & Visual Proof
 
-A disciplined, feedback-driven workflow that turns requirements into verified behavior. Drives changes with focused tests first, keeps changes minimal, and guards against both model complacency and implementation-first drift.
+A disciplined, feedback-driven workflow that turns requirements into verified behavior. Drives logic changes with focused tests first, verifies UI changes with visual before/after proof, keeps changes minimal, and guards against both model complacency and implementation-first drift.
 
 ## When to Use
 
+- New features requiring behavioral or visual verification
 - Bug fixes requiring regression prevention
-- New features requiring behavior verification
 - Structural refactors that must preserve existing semantics
-- Explicit requests for TDD, "test first", or "Red-Green-Refactor"
+- Explicit requests for verified dev, TDD, "test first", or "Red-Green-Refactor"
 
 **Do NOT use for:**
 - Pure text, comments, or documentation changes
 - Exploratory throwaway scripts
-- Pure visual styling, layout, or aesthetic tweaks (use Before/After visual comparison instead)
+- Trivial one-line typo fixes
 
 ---
 

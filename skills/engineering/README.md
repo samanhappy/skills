@@ -2,5 +2,5 @@
 
 Skills I use for code work.
 
-- **[tdd](./tdd/SKILL.md)** — Test-driven development with a red-green-refactor loop. Use it for bug fixes, features, regression tests, and safe refactors.
-- **[clip-subtitle-video](./clip-subtitle-video/SKILL.md)** — Clip videos and burn bilingual subtitles into MP4 deliverables.
+- **[verified-dev](./verified-dev/SKILL.md)** — Disciplined, verification-driven development with Red → Green → Refactor and visual proof. Use it for bug fixes, features, regression tests, and safe refactors.
+- **[optimize-prompt](./optimize-prompt/SKILL.md)** — Diagnose and optimize agent prompts via decision-chain analysis and invariant fixes.

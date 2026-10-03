@@ -10,7 +10,7 @@ This repository is where I collect the skills I actually want my coding agents t
 
 Current skills:
 
-- **[tdd](./skills/engineering/tdd/SKILL.md)** — Test-driven development with a Red → Green → Refactor loop.
+- **[verified-dev](./skills/engineering/verified-dev/SKILL.md)** — Disciplined, verification-driven development with a Red → Green → Refactor loop and visual proof.
 - **[optimize-prompt](./skills/engineering/optimize-prompt/SKILL.md)** — Diagnose and optimize agent prompts via decision-chain analysis and invariant fixes.
 - **[clip-subtitle-video](./skills/media/clip-subtitle-video/SKILL.md)** — Clip videos and burn bilingual subtitles into MP4 deliverables.
 - **[write-blog](./skills/writing/write-blog/SKILL.md)** — Write deep-analysis technical blog posts in Chinese.
@@ -26,7 +26,7 @@ npx skills@latest add samanhappy/skills
 
 2. Choose the skills you want to install.
 
-3. Start with [`/tdd`](./skills/engineering/tdd/SKILL.md) when you want a change driven by tests first.
+3. Start with [`/verified-dev`](./skills/engineering/verified-dev/SKILL.md) when you want a change driven by tests first.
 
 ## Why this repo exists
 
@@ -49,7 +49,7 @@ That philosophy matches how I work elsewhere too:
 
 ### Engineering
 
-- **[tdd](./skills/engineering/tdd/SKILL.md)** — Test-driven development with a red-green-refactor loop.
+- **[verified-dev](./skills/engineering/verified-dev/SKILL.md)** — Disciplined, verification-driven development with a red-green-refactor loop and visual proof.
 - **[optimize-prompt](./skills/engineering/optimize-prompt/SKILL.md)** — Diagnose and optimize agent prompts via decision-chain analysis and invariant fixes.
 
 ### Media
