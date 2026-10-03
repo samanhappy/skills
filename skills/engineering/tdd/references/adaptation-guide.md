@@ -19,6 +19,7 @@ Identify:
 - **test file naming pattern**: `*.test.ts`, `*_test.go`, `test_*.py`, etc.
 - **test directory layout**: co-located beside code (`src/foo.test.ts`) vs. dedicated directory (`tests/`, `__tests__/`).
 - **fixture, mock, and helper patterns**: local test helpers, factory patterns, DB seeders, teardown hooks.
+- **UI testing & preview tools**: React Testing Library, Vue Test Utils, Playwright, Storybook, or local dev server for visual inspection.
 - **focused vs. broad commands**: how to run a single test file or function vs. full test suite.
 
 ## Good adaptation questions
@@ -28,6 +29,7 @@ Identify:
 - How are test names phrased in this codebase?
 - Are assertions behavioral or implementation-heavy?
 - Is there a quick command for one file, one suite, or one package?
+- For UI changes: is there a dev server or preview command to capture Before/After screenshots, or does the project use Testing Library for behavior?
 - How do existing tests handle cleanup and teardown (DB transactions, temp directories, mock resets)?
 - What broader commands are expected before saying the change is done?
 

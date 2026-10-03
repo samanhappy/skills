@@ -31,6 +31,7 @@ Do **not** use this skill for:
 - pure documentation work
 - one-off exploratory scripts where tests add no value
 - tasks where the user explicitly asks to skip tests
+- pure visual layout, styling, and aesthetic tweaks (e.g., CSS padding, color palettes, animations) — use the **UI & Visual Verification Workflow** instead of forcing unit tests
 
 ## Core Rules
 
@@ -186,6 +187,24 @@ Summarize:
 - what validation was run
 - whether any limits or follow-up work remain
 
+## UI & Visual Verification Workflow
+
+For user interface work, distinguish between **behavior** and **visual appearance**:
+
+### 1. UI Behavior & State Transitions (TDD applies)
+- **Scope**: Form validation, dynamic conditional rendering, modal open/close, custom hooks, network loading/error states, keyboard shortcuts, and accessibility (A11y) attributes.
+- **Method**: Use user-centric assertions (e.g. `@testing-library`, Playwright component testing).
+- **Rule**: Assert visible text, ARIA roles, and accessible names (`getByRole`, `findByText`). Never assert internal component state or private instance methods.
+
+### 2. Visual Layout, Styling, & Aesthetics (TDD is NOT enforced; visual comparison required)
+- **Scope**: CSS adjustments, padding/margin tweaks, color palettes, responsive breakpoints, typography, and pure animations.
+- **Rule**: **Do NOT write brittle unit tests asserting CSS classes or computed styles** (e.g. `toHaveClass('p-4')`). TDD is not enforced for pure aesthetics.
+- **Mandatory Visual Comparison**:
+  1. Capture a **Before** screenshot of the affected component or page using browser tools (`openBrowserPage`, `screenshotPage`, etc.) before editing.
+  2. Implement the visual change.
+  3. Capture an **After** screenshot under the exact same viewport and application state.
+  4. Present both screenshots side-by-side or consecutively in the response to visually verify the outcome.
+
 ## Best-Effort Mode
 
 Sometimes strict Red is blocked by environment or architecture. Examples:
@@ -213,6 +232,8 @@ Stop and call out the issue before proceeding if:
 - the user's approach fights the architecture, duplicates existing functionality, or is needlessly complex — and you haven't proposed a better alternative
 - you are about to implement behavior without first checking whether a test can capture it
 - the failing test failed due to a broken harness, syntax error, or bad import rather than an asserted behavioral mismatch
+- you are writing brittle unit tests asserting CSS class names or computed pixel styles instead of testing behavior
+- you are about to complete a visual UI change without capturing Before and After comparison screenshots (when a browser tool is available)
 - you are about to refactor unrelated code during the Green phase
 - your tests leave side effects or persistent state (temp files, dirty DB rows, unreset mocks)
 - you cannot identify where tests belong and have not inspected existing test patterns
@@ -229,6 +250,8 @@ If the task starts to look like TDD on paper but not in practice — tests passi
 | The agent accepted the user's solution without questioning it | Grill the approach — confidence is not correctness; propose alternatives when warranted |
 | The agent jumped straight to implementation | Go back and write or strengthen the test first |
 | The failing test failed for the wrong reason (syntax, bad import, setup error) | Fix the test setup; Red must be an unmet behavioral expectation |
+| The test asserted CSS classes or pixel dimensions | Do not force TDD on pure visual styling; use Before/After screenshot comparison |
+| The agent modified UI appearance blindly without visual confirmation | Capture Before and After screenshots to verify visual layout and appearance |
 | The test left lingering files, dirty DB rows, or mutated global state | Ensure clean teardown and mock restoration; keep tests isolated and idempotent |
 | The first test required too much setup | Shrink scope; choose a narrower seam |
 | The fix needed many files immediately | Re-check whether the first test increment is too large; break into smaller slices |
@@ -239,7 +262,8 @@ If the task starts to look like TDD on paper but not in practice — tests passi
 
 A good TDD run usually produces:
 
-- one new or updated failing test that demonstrated the need for change
+- one new or updated failing test that demonstrated the need for change (for behavioral/logic changes)
 - one minimal implementation change that made it pass
 - evidence of focused and broader validation
+- Before and After comparison screenshots (for visual UI changes)
 - a clear note when strict TDD could not be followed end-to-end

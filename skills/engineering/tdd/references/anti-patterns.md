@@ -78,10 +78,23 @@ Strict TDD is skipped because writing the test feels slower.
 
 **Fix:** best-effort mode is only for real blockers such as environment limits, missing seams, or broken test infrastructure.
 
+### 12. Forcing TDD on visual styling (Brittle CSS testing)
+
+The agent attempts to apply TDD to pure visual changes (margins, padding, colors, fonts) by asserting class names like `expect(btn).toHaveClass('px-4')` or computed styles. These tests are extremely brittle: they break on irrelevant refactors, test implementation details instead of user value, and fail to prove that the page actually looks right.
+
+**Fix:** do not force TDD on pure aesthetics. Validate visual styling using Before/After screenshot comparison in a browser environment. Reserve TDD for UI behavior, event handling, and state machines.
+
+### 13. Blind UI modifications
+
+The agent modifies CSS, layout markup, or responsive rules without visually verifying the result in a real browser, relying solely on code reading or wishful thinking.
+
+**Fix:** when browser automation tools are available, always capture a Before screenshot prior to editing and an After screenshot post-edit, comparing them under identical viewport conditions.
+
 ## Acceptable exceptions
 
 A strict failing test may be blocked when:
 
+- the change is purely visual/aesthetic styling (waived in favor of Before/After screenshot comparison)
 - required infrastructure is unavailable
 - reproducing the bug needs an external dependency that cannot be simulated locally
 - the repository's current test setup is broken
@@ -89,7 +102,8 @@ A strict failing test may be blocked when:
 
 Even then:
 
-- explain the blocker explicitly
+- explain the blocker or visual exception explicitly
+- capture visual Before/After evidence if it is a UI change
 - add the closest useful test possible
 - keep the code change narrow and reversible
 - describe the missing ideal test for follow-up
