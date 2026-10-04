@@ -10,6 +10,7 @@ This repository is where I collect the skills I actually want my coding agents t
 
 Current skills:
 
+- **[github-maintainer](./skills/engineering/github-maintainer/SKILL.md)** — Advance GitHub issues, PRs, security, and quality asynchronously with gh, subagents, and maintainer approval gates.
 - **[verified-dev](./skills/engineering/verified-dev/SKILL.md)** — Disciplined, verification-driven development with a Red → Green → Refactor loop and visual proof.
 - **[optimize-prompt](./skills/engineering/optimize-prompt/SKILL.md)** — Diagnose and optimize agent prompts via decision-chain analysis and invariant fixes.
 - **[clip-subtitle-video](./skills/media/clip-subtitle-video/SKILL.md)** — Clip videos and burn bilingual subtitles into MP4 deliverables.
@@ -49,6 +50,7 @@ That philosophy matches how I work elsewhere too:
 
 ### Engineering
 
+- **[github-maintainer](./skills/engineering/github-maintainer/SKILL.md)** — Advance GitHub issues, PRs, security, and quality asynchronously with gh, subagents, and maintainer approval gates.
 - **[verified-dev](./skills/engineering/verified-dev/SKILL.md)** — Disciplined, verification-driven development with a red-green-refactor loop and visual proof.
 - **[optimize-prompt](./skills/engineering/optimize-prompt/SKILL.md)** — Diagnose and optimize agent prompts via decision-chain analysis and invariant fixes.
 
