@@ -1,0 +1,23 @@
+README.md
+  s_e549ff313f1bb9::t_f0badb143a7cd4 13,53
+skills/engineering/README.md
+  s_e549ff313f1bb9::t_59a4552c4b1587 7-8
+skills/engineering/github-maintainer/SKILL.md
+  s_e549ff313f1bb9::t_431a1939a0991b 1-112
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "2602398eabda48685aee132b2413ed02c212b3d7",
+  "prompts": {},
+  "sessions": {
+    "s_e549ff313f1bb9": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a10519-3fac-7de3-8df3-28549d87a87b",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "samanhappy <samanhappy@gmail.com>"
+    }
+  }
+}
