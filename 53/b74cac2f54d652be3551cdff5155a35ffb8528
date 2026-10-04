@@ -1,0 +1,20 @@
+skills/engineering/github-maintainer/SKILL.md
+  s_99d19e274081cc::t_f48756b324fdef 10,75
+  s_99d19e274081cc::t_5cb3ed06491b95 18,70,80-82,97,102
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "53b74cac2f54d652be3551cdff5155a35ffb8528",
+  "prompts": {},
+  "sessions": {
+    "s_99d19e274081cc": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a10753-f1b0-7820-a836-ad0b803c7c85",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "samanhappy <samanhappy@gmail.com>"
+    }
+  }
+}
