@@ -27,11 +27,11 @@ Invoking this skill authorizes necessary status, clarification, and review comme
 
 ## Each pass
 
-1. Read the requested scope. Otherwise inspect open issues, PRs, failing checks, and accessible Security and quality items. Paginate fully or disclose truncated coverage. Missing permissions, disabled features, and failed reads do not mean zero items.
-2. Read each candidate's description, discussion, timeline, labels, linked items, and latest maintainer guidance. For PRs, also inspect draft status, base/head SHAs, commits, complete diff, reviews, unresolved threads, and checks for the current SHA. `updatedAt` may reflect bots or labels rather than feedback.
-3. Decide from substantive activity, dependencies, and risk. Prioritize actual security risks and release blockers, then actionable defects, ready PRs, and well-defined requests. Check existing fixes and linked items to avoid duplicate work.
-4. Refresh important state before implementation. Before writing back, confirm the item remains open, its SHA is unchanged, and no new guidance supersedes the plan. Reassess if anything changed.
-5. Complete independent work and record waiting states, blockers, and approval requests on the relevant items. In chat, provide a short linked digest: advanced, awaiting maintainer review, waiting on others, and inaccessible. Do not turn every item into a synchronous question.
+1. Inventory the requested scope; otherwise list open issues, PRs, failing checks, and accessible Security and quality items. Paginate the inventory fully or disclose incomplete coverage. Missing permissions, disabled features, and failed reads do not mean zero items. Listing an item does not mean it has been assessed.
+2. Select candidates for deeper investigation from risk, substantive activity, dependencies, and existing workflow state. Prioritize actual security risks and release blockers, then actionable defects, ready PRs, and well-defined requests. Check existing fixes and linked work. Existing waiting records need deeper attention when new evidence arrives, a concrete reminder is due, or an urgent risk warrants it; age or label changes alone do not justify another comment.
+3. Read each selected candidate's description, discussion, timeline, labels, linked items, and latest maintainer guidance. For PRs, also inspect draft status, base/head SHAs, commits, complete diff, reviews, unresolved threads, and checks for the current SHA. `updatedAt` may reflect bots or labels rather than feedback. Retrieve discussions per item; do not substitute the repository-wide comment stream. Save large results locally and inspect them in bounded portions; output truncation is not complete coverage.
+4. Refresh important state before implementation. Before writing back, confirm the item remains open, the relevant SHA is unchanged, and no new guidance supersedes the plan. Reassess if anything changed. Complete selected actionable work through delivery and the review/fix loop, or record the exact blocker and next owner; do not stop at diagnosis when an authorized repair can proceed.
+5. Provide a short linked digest distinguishing inventory coverage from deeper assessment: advanced, awaiting maintainer review, waiting on others, deferred, and inaccessible. Group untouched backlog by reason rather than implying it was fully reviewed. Lead with the highest-priority maintainer decision, if any, including the recommendation and what it unblocks. Do not turn every item into a synchronous question.
 
 ## State labels
 
@@ -54,7 +54,8 @@ Labels are indexes; comments record actual state, next owner, and version. Revie
 ## Issues and waiting
 
 - Verify reproduction, affected versions, expected behavior, and existing fixes/PRs. Request only essential missing information in one comment and apply needs-info; do not guess requirements.
-- Delegate clear, verifiable implementation to a subagent and create a linked draft PR after validation. For product tradeoffs, compatibility, significant API/architecture choices, or insufficient evidence, investigate and prepare a proposal first; apply needs-owner with one actionable decision and a recommendation.
+- Separate confirmed defects from proposed solutions. An issue containing a large design proposal does not make every repair an architecture decision. First assess whether the defect can be reproduced and fixed independently within established behavior and authorization; if so, delegate the smallest root-cause repair and deliver a linked PR through validation and independent review. Record which broader goals remain open.
+- For genuinely necessary product tradeoffs or significant API/architecture/compatibility choices, prepare a concrete proposal and apply needs-owner with one decision and a recommendation. Missing reproduction details belong in needs-info; use needs-owner when the missing information or decision must come from the maintainer. A small diff alone does not justify bypassing approval for a behavior or security-policy change.
 - Link the delivered PR and describe validation. Close issues only after the fix lands or explicit maintainer direction. Automatic closing keywords must reflect an established closure decision. Waiting alone never justifies automatic closure or wontfix.
 - Measure waiting from the latest unanswered concrete request or substantive discussion advancing it. Bots, unrelated comments, and your own label changes do not reset the clock.
 - By default, consider one friendly reminder after **14 calendar days** without substantive feedback. After another 14 days without a reply, ask the maintainer what to do next and apply needs-owner; do not repeatedly chase. The maintainer may override these defaults.
@@ -72,7 +73,7 @@ Labels are indexes; comments record actual state, next owner, and version. Revie
 
 ### Ready for review
 
-- Every non-draft PR ready for review requires an independent reviewing subagent, including PRs created by this workflow. The reviewer must not be the implementer. Apply in-progress when review starts and remove waiting-feedback once its blocker is resolved. Remove needs-owner when new commits invalidate a completed owner-review handoff; preserve unrelated pending owner decisions. Limit draft PR work to necessary diagnosis unless the maintainer explicitly requests review.
+- Every non-draft PR selected for review requires an independent reviewing subagent, including all PRs created by this workflow. Report ready PRs deferred this pass with the reason; do not label them reviewed. The reviewer must not be the implementer. Apply in-progress when review starts and remove waiting-feedback once its blocker is resolved. Remove needs-owner when new commits invalidate a completed owner-review handoff; preserve unrelated pending owner decisions. Limit draft PR work to necessary diagnosis unless the maintainer explicitly requests review.
 - Fix the base/head SHAs and supply linked issues, complete diff, prior feedback, project conventions, and necessary context. Evaluate correctness, regressions, authorization/data boundaries, and validation evidence; do not invent findings to fill a quota.
 - The subagent returns findings. The coordinator verifies evidence, locations, and severity, filters duplicate or resolved findings, then publishes using `gh pr comment --body-file`. This workflow requests comments; do not automatically submit formal APPROVE or REQUEST_CHANGES reviews.
 - Include the reviewed SHA, key findings, validation limits, and next action. Findings need concrete triggers, impact, and file locations. If none remain, say “No blocking issues found,” without claiming absolute safety.
@@ -98,7 +99,7 @@ Proceed directly with reads, investigation, necessary friendly comments and labe
 
 For the following actions, prepare reviewable material, apply needs-owner, pause that action, and continue other work:
 
-- Uncertain requirements/proposals or significant architecture/API/compatibility decisions.
+- Unresolved requirements or significant architecture/API/compatibility decisions required by the proposed action. Gate that action, not an independent repair already within confirmed scope.
 - Merging, writing directly to the default branch, releases/tags/deployments, or public release edits.
 - Closing unresolved items, rejecting requests, dismissing alerts, and the security lifecycle actions above.
 - Force-pushing, overwriting others' work, destructive operations, or changing branch protection, permissions, or quality gates.
