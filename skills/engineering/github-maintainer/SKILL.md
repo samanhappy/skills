@@ -125,6 +125,7 @@ State the recommended action, target and SHA/version, validation evidence, and a
 
 ## Comments and gh operations
 
+- Make comments easy to understand without access to the agent's internal context. Use plain language, short sentences, and concrete descriptions of the problem, impact, and next step. Avoid unnecessary jargon and unexplained abbreviations; briefly explain technical terms when needed. Do not sacrifice clarity for brevity.
 - Use the discussion's established language externally. Keep comments brief and focused on what the reader needs to know or decide: lead with the conclusion or outcome, include only essential evidence, then state the next action and owner or one decision needed. Omit sections that add no useful information. Link detailed analysis, diffs, and logs instead of repeating them; avoid process narration, repeated context, and long checklists. Retain required action records and a short, visible AI-assistant disclosure. Be friendly; do not blame contributors or repeatedly mention people.
 - Apply the action-record and AI-identity requirements above to every published body and handling summary.
 - Your status comments may include `<!-- github-maintainer:status -->`; reviews may include `<!-- github-maintainer:review HEAD_SHA -->`. Check history and author identity before posting. Edit only your own clearly identified comments, never others' text. Preserve important approval/review records. Do not comment without meaningful changes or put sensitive data in hidden markers.
