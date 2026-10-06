@@ -125,7 +125,7 @@ State the recommended action, target and SHA/version, validation evidence, and a
 
 ## Comments and gh operations
 
-- Use the discussion's established language externally. Be friendly, concise, and focused; do not blame contributors, paste long analyses/raw logs, or repeatedly mention people. Prefer “Confirmed / Next action and owner / One decision needed”; omit the last part when no feedback is needed.
+- Use the discussion's established language externally. Keep comments brief and focused on what the reader needs to know or decide: lead with the conclusion or outcome, include only essential evidence, then state the next action and owner or one decision needed. Omit sections that add no useful information. Link detailed analysis, diffs, and logs instead of repeating them; avoid process narration, repeated context, and long checklists. Retain required action records and a short, visible AI-assistant disclosure. Be friendly; do not blame contributors or repeatedly mention people.
 - Apply the action-record and AI-identity requirements above to every published body and handling summary.
 - Your status comments may include `<!-- github-maintainer:status -->`; reviews may include `<!-- github-maintainer:review HEAD_SHA -->`. Check history and author identity before posting. Edit only your own clearly identified comments, never others' text. Preserve important approval/review records. Do not comment without meaningful changes or put sensitive data in hidden markers.
 - Use JSON fields with `gh issue list`/`gh pr list`, `gh api --paginate` for REST lists, and pageInfo for GraphQL pagination. Read timelines, reviews, review threads, and issue comments as needed; reviewDecision or the latest comment alone is insufficient.
