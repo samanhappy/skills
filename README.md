@@ -14,6 +14,7 @@ Current skills:
 - **[verified-dev](./skills/engineering/verified-dev/SKILL.md)** — Disciplined, verification-driven development with a Red → Green → Refactor loop and visual proof.
 - **[optimize-prompt](./skills/engineering/optimize-prompt/SKILL.md)** — Diagnose and optimize agent prompts via decision-chain analysis and invariant fixes.
 - **[clip-subtitle-video](./skills/media/clip-subtitle-video/SKILL.md)** — Clip videos and burn bilingual subtitles into MP4 deliverables.
+- **[clean-paper-scan](./skills/documents/clean-paper-scan/SKILL.md)** — Turn phone photos of paper documents into clean printable A4 PDFs: erase handwriting, remove shadows and show-through, straighten curled pages, clear edge grime.
 - **[write-blog](./skills/writing/write-blog/SKILL.md)** — Write deep-analysis technical blog posts in Chinese.
 - **[translate-blog](./skills/writing/translate-blog/SKILL.md)** — Translate English technical blog posts to Chinese with glossary-driven terminology consistency.
 
@@ -58,10 +59,14 @@ That philosophy matches how I work elsewhere too:
 
 - **[clip-subtitle-video](./skills/media/clip-subtitle-video/SKILL.md)** — Clip videos and burn bilingual subtitles into MP4 deliverables.
 
+### Documents
+
+- **[clean-paper-scan](./skills/documents/clean-paper-scan/SKILL.md)** — Turn phone photos of paper documents into clean printable A4 PDFs: perspective correction, lighting normalization, handwriting erasure, de-warping, edge-grime cleanup, and verified page order.
+
 ### Writing
 
 - **[write-blog](./skills/writing/write-blog/SKILL.md)** — Write deep-analysis blog posts in Chinese.
-- **[translate-blog](./skills/writing/translate-blog/SKILL.md)** — Translate English technical blog posts to Chinese.
+- **[translate-blog](./skills/writing/translate-blog/SKILL.md)** — Translate English technical blog posts to Chinese with glossary-driven terminology consistency.
 
 ## License
 
