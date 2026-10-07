@@ -1,0 +1,21 @@
+skills/engineering/github-maintainer/references/github-state.md
+  s_5c8b4fe4b5d1f8::t_ad6495bcbdeec7 25,29-30
+skills/engineering/github-maintainer/SKILL.md
+  s_5c8b4fe4b5d1f8::t_6a35aeacf3c98a 17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1df73b4b8e8782bffce15ee483e9d8f00f1dac1e",
+  "prompts": {},
+  "sessions": {
+    "s_5c8b4fe4b5d1f8": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1141f-b031-7d11-880f-0dfbcba792ac",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "samanhappy <samanhappy@gmail.com>"
+    }
+  }
+}
