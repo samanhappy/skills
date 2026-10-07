@@ -1,11 +1,7 @@
 # Security and quality
 
-Before handling an advisory, vulnerability, alert, dependency, or CI failure, read [SKILL.md](../SKILL.md), [github-state.md](github-state.md), and this file. Implementation and review workers assigned a security repair must also read this file before accessing repair evidence or editing code.
-
-- Use `gh api`/`gh run` to inspect enabled repository advisories, Dependabot, code scanning, secret scanning, and CI/checks. Report inaccessible categories individually; do not assume every feature is available.
-- Compare alert versions and branches with current code and existing fixes; verify reachability and impact. Distinguish code, environment, permissions, and external services when diagnosing CI failures. Do not change expectations or disable rules merely to make checks pass.
-- Reuse related issues or create minimal actionable issues for ordinary quality/dependency work, then read [issues.md](issues.md) and follow the issue workflow. Before implementing or reviewing a repair PR, read [pull-requests.md](pull-requests.md). Verify compatibility, lockfiles, and validation when updating dependencies; do not blindly upgrade to the latest version.
-- Keep unpublished vulnerabilities, secrets, and private reports in their corresponding private security context and the current chat. Never disclose details, reproduction steps, credentials, sensitive logs, or revealing index items through public issues, PRs, labels, or comments.
-- Use the advisory's private fork/PR for security fixes; verify visibility and remotes first. Permission failures must not lead to public branches. Any repository policy permitting direct-to-default-branch security fixes still requires explicit maintainer approval under this workflow.
-- Where GHSA workflow labels or gh comment interfaces are unavailable, do not force the issue workflow, repeatedly retry, or switch to web messaging. Record state on an available private repair PR, or provide the GHSA link and private decision summary in chat.
-- Accepting/closing reports, requesting CVEs, changing severity/affected ranges, dismissing alerts, rotating/revoking credentials, and security disclosure require maintainer approval. Prepare evidence, rationale, and exact changes first. Disclosure also requires verifying that a patched version is actually available.
+- Cover accessible advisories, Dependabot, code scanning, secret scanning, and CI/checks; report inaccessible categories individually.
+- Verify affected versions/branches, reachability, and existing fixes. Preserve quality gates; diagnose failures rather than weakening expectations.
+- Route ordinary dependency/quality work through existing or minimal actionable issues: read [issues.md](issues.md), then [pull-requests.md](pull-requests.md) for repair implementation/review.
+- GHSA fixes use the advisory's private fork/PR. Verify visibility/remotes before creating a worktree or pushing; no public fallback on permission failure. The entrypoint's approval gates apply even if repository policy permits direct default-branch fixes.
+- If GHSA labels/comments are unavailable, record state on the private repair PR or provide the GHSA link and private decision summary in chat. Do not force the issue workflow, repeatedly retry, or switch to web messaging.
