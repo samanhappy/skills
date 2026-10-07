@@ -1,0 +1,11 @@
+# Issues and waiting
+
+Before handling an issue, read [SKILL.md](../SKILL.md) and [github-state.md](github-state.md). The item coordinator owns this workflow.
+
+- Verify reproduction, affected versions, expected behavior, and existing fixes/PRs. Request only essential missing information in one comment and apply needs-info; do not guess requirements.
+- Separate confirmed defects from proposed solutions. An issue containing a large design proposal does not make every repair an architecture decision. First assess whether the defect can be reproduced and fixed independently within established behavior and authorization; if so, delegate the smallest root-cause repair and read [pull-requests.md](pull-requests.md) before delegating implementation, and deliver a linked PR through validation and independent review. Record which broader goals remain open.
+- For genuinely necessary product tradeoffs or significant API/architecture/compatibility choices, prepare a concrete proposal and apply needs-owner with one decision and a recommendation. Missing reproduction details belong in needs-info; use needs-owner when the missing information or decision must come from the maintainer. A small diff alone does not justify bypassing approval for a behavior or security-policy change.
+- Link the delivered PR and describe validation. Close issues only after the fix lands or explicit maintainer direction. Automatic closing keywords must reflect an established closure decision. Waiting alone never justifies automatic closure or wontfix.
+- Measure waiting from the latest unanswered concrete request or substantive discussion advancing it. Bots, unrelated comments, and your own label changes do not reset the clock.
+- By default, consider one friendly reminder after **14 calendar days** without substantive feedback. After another 14 days without a reply, ask the maintainer what to do next and apply needs-owner; do not repeatedly chase. The maintainer may override these defaults.
+- Check reminder history to avoid duplicates. Honor specified dates or instructions to keep waiting. Item age alone is not a reason to prompt. Continue other work while waiting; urgent security/release blockers may be raised immediately in an appropriate private context.
