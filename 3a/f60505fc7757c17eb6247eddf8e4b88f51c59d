@@ -1,0 +1,44 @@
+README.md
+  h_18676a549cd52a 17,62-65,69
+skills/documents/README.md
+  h_18676a549cd52a 1-5
+skills/documents/clean-paper-scan/SKILL.md
+  h_18676a549cd52a 1-69
+skills/documents/clean-paper-scan/references/pipeline.md
+  h_18676a549cd52a 1-143
+skills/documents/clean-paper-scan/references/scripts/README.md
+  h_18676a549cd52a 1-69
+skills/documents/clean-paper-scan/references/scripts/clean_scan.py
+  h_18676a549cd52a 1-159
+skills/documents/clean-paper-scan/references/scripts/cleanscan/__init__.py
+  h_18676a549cd52a 1-6
+skills/documents/clean-paper-scan/references/scripts/cleanscan/dewarp.py
+  h_18676a549cd52a 1-149
+skills/documents/clean-paper-scan/references/scripts/cleanscan/erase.py
+  h_18676a549cd52a 1-93
+skills/documents/clean-paper-scan/references/scripts/cleanscan/gridview.py
+  h_18676a549cd52a 1-67
+skills/documents/clean-paper-scan/references/scripts/cleanscan/margins.py
+  h_18676a549cd52a 1-50
+skills/documents/clean-paper-scan/references/scripts/cleanscan/normalize.py
+  h_18676a549cd52a 1-38
+skills/documents/clean-paper-scan/references/scripts/cleanscan/pdf.py
+  h_18676a549cd52a 1-73
+skills/documents/clean-paper-scan/references/scripts/cleanscan/quad.py
+  h_18676a549cd52a 1-118
+skills/documents/clean-paper-scan/references/scripts/cleanscan/tools.py
+  h_18676a549cd52a 1-163
+skills/documents/clean-paper-scan/references/troubleshooting.md
+  h_18676a549cd52a 1-57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3af60505fc7757c17eb6247eddf8e4b88f51c59d",
+  "prompts": {},
+  "humans": {
+    "h_18676a549cd52a": {
+      "author": "samanhappy <samanhappy@gmail.com>"
+    }
+  }
+}
