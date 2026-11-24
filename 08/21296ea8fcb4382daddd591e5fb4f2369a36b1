@@ -1,0 +1,24 @@
+.gitignore
+  h_18676a549cd52a 1
+skills/writing/reflective-engineering-writing/SKILL.md
+  h_18676a549cd52a 1-91
+skills/writing/reflective-engineering-writing/references/review-checklist.md
+  h_18676a549cd52a 1-13
+skills/writing/reflective-engineering-writing/references/sources.md
+  h_18676a549cd52a 1-7
+skills/writing/reflective-engineering-writing/references/style-examples.md
+  h_18676a549cd52a 1-43
+skills/writing/reflective-engineering-writing/references/writing-techniques.md
+  h_18676a549cd52a 1-29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0821296ea8fcb4382daddd591e5fb4f2369a36b1",
+  "prompts": {},
+  "humans": {
+    "h_18676a549cd52a": {
+      "author": "samanhappy <samanhappy@gmail.com>"
+    }
+  }
+}
